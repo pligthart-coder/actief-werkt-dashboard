@@ -1,14 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
   try {
-    const session = await auth();
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     const items = await prisma.checklistItem.findMany();
     const itemsMap: Record<string, boolean> = {};
     items.forEach((item: { itemId: string; completed: boolean }) => {
@@ -27,23 +21,18 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await auth();
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     const { itemId, completed } = await request.json();
 
     const item = await prisma.checklistItem.upsert({
       where: { itemId },
       update: {
         completed,
-        updatedBy: session.user?.email || undefined,
+        updatedBy: "anonymous",
       },
       create: {
         itemId,
         completed,
-        updatedBy: session.user?.email || undefined,
+        updatedBy: "anonymous",
       },
     });
 
