@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSession, signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import useSWR, { mutate } from "swr";
 
 const OWNER: Record<string, string> = {
@@ -317,8 +315,6 @@ const DAYS: Day[] = [
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function DashboardPage() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
   const { data: checklistState, error } = useSWR<Record<string, boolean>>(
     "/api/checklist",
@@ -328,23 +324,6 @@ export default function DashboardPage() {
     }
   );
 
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login");
-    }
-  }, [status, router]);
-
-  if (status === "loading") {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl">Laden...</div>
-      </div>
-    );
-  }
-
-  if (!session) {
-    return null;
-  }
 
   const toggleDay = (dayId: string) => {
     setCollapsed((prev) => ({ ...prev, [dayId]: !prev[dayId] }));
@@ -589,12 +568,6 @@ export default function DashboardPage() {
                 className="px-3 py-1.5 text-xs font-semibold bg-white/10 border border-white/30 rounded-lg hover:bg-white/20 transition"
               >
                 Reset
-              </button>
-              <button
-                onClick={() => signOut({ callbackUrl: "/login" })}
-                className="px-3 py-1.5 text-xs font-semibold bg-white/10 border border-white/30 rounded-lg hover:bg-white/20 transition"
-              >
-                Uitloggen
               </button>
             </div>
           </div>
