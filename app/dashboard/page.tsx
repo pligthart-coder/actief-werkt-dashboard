@@ -50,11 +50,11 @@ const DAYS: Day[] = [
         sub: "Voorkomt ongewenste acties tijdens de import",
       },
       {
-        t: "12:00",
+        t: "15:00",
         type: "step",
         owner: "Actief Werkt!",
         title: "SSO Carerix uitschakelen — inloggen geblokkeerd",
-        sub: "Geen gebruikerstoegang tijdens migratie",
+        sub: "Later dan gepland op verzoek van Sarah (training)",
       },
       {
         t: "12:00–18:00",
@@ -64,25 +64,25 @@ const DAYS: Day[] = [
         sub: "Schone productieomgeving vóór de import",
       },
       {
-        t: "17:00",
+        t: "18:00",
         type: "mile",
         owner: "Actief Werkt!",
         title: "Cockpit blokkeren — START go-live-proces",
-        sub: "Bron bevroren; geen mutaties meer in Cockpit",
+        sub: "Toegang geblokkeerd; geen mutaties meer in Cockpit",
       },
       {
-        t: "17:00",
+        t: "18:00",
         type: "check",
         owner: "Allen",
         title: "Start-cutover call (±15 min)",
         sub: "Bevestig de GO om Cockpit te blokkeren en de export te starten",
       },
       {
-        t: "17:00 → vr 09:00",
+        t: "18:00 → vr ochtend",
         type: "mig",
         owner: "Teal",
-        title: "Definitieve data-export via API uit Cockpit",
-        sub: "Levert de finale dataset op vrijdag 09:00",
+        title: "Data-export uit Cockpit door RecruitNOW",
+        sub: "Kritieke factor: duur export is onbekend. Doel: vrijdagochtend klaar",
       },
     ],
   },
@@ -148,11 +148,11 @@ const DAYS: Day[] = [
     phase: "Fase B · Productiemigratie (dag 2)",
     items: [
       {
-        t: "09:00",
+        t: "Flexibel",
         type: "check",
         owner: "Allen",
         title: "Ochtendcall — stand-up",
-        sub: "Status van de nacht, dagplanning",
+        sub: "Tijd aangepast aan persoonlijke agenda's deelnemers",
       },
       {
         t: "10:00–12:00",
@@ -183,11 +183,11 @@ const DAYS: Day[] = [
         sub: "Bijlagen volledig overgenomen (oplevering zondag 15:00)",
       },
       {
-        t: "17:00",
+        t: "Flexibel",
         type: "check",
         owner: "Allen",
         title: "Eindedagcall — close",
-        sub: "Dagresultaten, openstaande issues, vooruitblik zondag",
+        sub: "Tijd aangepast aan persoonlijke agenda's. Dagresultaten, issues, vooruitblik",
       },
       {
         t: "18:00 → zo 12:00",
@@ -211,11 +211,11 @@ const DAYS: Day[] = [
     phase: "Fase B/C · Afronding migratie & synchronisatie",
     items: [
       {
-        t: "09:00",
+        t: "Flexibel",
         type: "check",
         owner: "Allen",
         title: "Ochtendcall — stand-up",
-        sub: "Laatste imports, plan richting Go/No-Go",
+        sub: "Tijd aangepast aan persoonlijke agenda's. Laatste imports, plan richting Go/No-Go",
       },
       {
         t: "09:00–17:00",
@@ -281,11 +281,32 @@ const DAYS: Day[] = [
         sub: "Laatste moment voor rollback: 07:30",
       },
       {
+        t: "Ochtend",
+        type: "step",
+        owner: "Freshheads",
+        title: "Website Actief Werkt in onderhoudsmodus",
+        sub: "Beheerd door Jaap van Freshheads",
+      },
+      {
+        t: "Ochtend",
+        type: "mig",
+        owner: "Teal",
+        title: "Handmatige 2e migratie (delta sinds donderdag)",
+        sub: "Ca. 200 kandidaten/matches die sinds donderdagavond zijn binnengekomen",
+      },
+      {
         t: "07:30–08:00",
         type: "step",
         owner: "Actief Werkt!",
         title: "SSO + accounts + triggers/automations activeren",
         sub: "Toegang en automatisering weer aan",
+      },
+      {
+        t: "Ochtend",
+        type: "step",
+        owner: "Actief Werkt!",
+        title: "Medewerkers starten met opnieuw publiceren vacatures",
+        sub: "Vacatures weer live zetten in Carerix",
       },
       {
         t: "08:00–08:30",
@@ -295,7 +316,7 @@ const DAYS: Day[] = [
         sub: "Vacatures en sollicitaties verlopen via Carerix",
       },
       {
-        t: "08:30",
+        t: "11:00",
         type: "mile",
         owner: "Actief Werkt!",
         title: "Organisatie informeren: GO — Carerix vrijgegeven",
