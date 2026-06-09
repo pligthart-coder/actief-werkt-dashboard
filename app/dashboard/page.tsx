@@ -218,18 +218,18 @@ const DAYS: Day[] = [
         sub: "Laatste imports, plan richting Go/No-Go",
       },
       {
-        t: "09:00–17:00",
-        type: "mig",
-        owner: "Teal",
-        title: "Import bijlagen via Teal",
-        sub: "Aanvullende bijlagen (oplevering 17:00)",
-      },
-      {
         t: "12:00–14:00",
         type: "valid",
         owner: "Actief Werkt!",
         title: "Validatie vacatures, taken, matches & publicaties (binnen 2 uur)",
         sub: "Feedback op de feedback-tab",
+      },
+      {
+        t: "15:00",
+        type: "step",
+        owner: "Carerix",
+        title: "Wijzigen emailadressen actiefwerkt.nl bij contactpersonen",
+        sub: "Bijv. @actiefwerkt.nl -> @nomail.nl",
       },
       {
         t: "15:00–17:00",
@@ -258,6 +258,13 @@ const DAYS: Day[] = [
         owner: "Teal",
         title: "Start synchronisatie Teal",
         sub: "Start pas ná het formele akkoord van Actief Werkt!",
+      },
+      {
+        t: "18:00",
+        type: "mig",
+        owner: "Teal",
+        title: "Test export naar Kentro",
+        sub: "Test koppeling met Kentro systeem",
       },
       {
         t: "±21:00",
