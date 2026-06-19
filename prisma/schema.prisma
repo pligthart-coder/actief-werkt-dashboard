@@ -30,3 +30,28 @@ model ChecklistItem {
 
   @@index([itemId])
 }
+
+model MigrationEntity {
+  id                  String    @id @default(cuid())
+  date                String
+  activity            String    @unique
+  startActivity       String
+  deliveryDate        String
+  expectedTime        String
+  processingTime      String?
+  recordsInFile       Int?
+  dataImported        Int?
+  readyForTest        Boolean   @default(false)
+  readyForTestDate    DateTime?
+  ok                  Boolean   @default(false)
+  okDate              DateTime?
+  notOk               Boolean   @default(false)
+  notOkDate           DateTime?
+  approval            Boolean   @default(false)
+  approvalDate        DateTime?
+  owner               String    @default("Carerix")
+  updatedAt           DateTime  @updatedAt
+  updatedBy           String?
+
+  @@index([activity])
+}

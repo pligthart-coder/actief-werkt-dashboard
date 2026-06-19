@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import useSWR, { mutate } from "swr";
+import MigrationStatus from "./MigrationStatus";
 
 const OWNER: Record<string, string> = {
   "Carerix": "car",
@@ -342,10 +343,39 @@ const DAYS: Day[] = [
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
+interface MigrationEntity {
+  id: string;
+  date: string;
+  activity: string;
+  startActivity: string;
+  deliveryDate: string;
+  expectedTime: string;
+  processingTime: string | null;
+  recordsInFile: number | null;
+  dataImported: number | null;
+  readyForTest: boolean;
+  readyForTestDate: string | null;
+  ok: boolean;
+  okDate: string | null;
+  notOk: boolean;
+  notOkDate: string | null;
+  approval: boolean;
+  approvalDate: string | null;
+  owner: string;
+}
+
 export default function DashboardPage() {
+  const [activeTab, setActiveTab] = useState<'checklist' | 'migration'>('checklist');
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
   const { data: checklistState, error } = useSWR<Record<string, boolean>>(
     "/api/checklist",
+    fetcher,
+    {
+      refreshInterval: 5000,
+    }
+  );
+  const { data: migrationEntities } = useSWR<MigrationEntity[]>(
+    "/api/migration",
     fetcher,
     {
       refreshInterval: 5000,
@@ -603,6 +633,32 @@ export default function DashboardPage() {
       </div>
 
       <div className="max-w-[960px] mx-auto px-4 py-6">
+        {/* Tab Navigation */}
+        <div className="mb-6 flex gap-2 border-b border-[#e4eaf3]">
+          <button
+            onClick={() => setActiveTab('checklist')}
+            className={`px-4 py-2 text-sm font-semibold transition border-b-2 ${
+              activeTab === 'checklist'
+                ? 'border-[#0149b6] text-[#0149b6]'
+                : 'border-transparent text-[#5b6779] hover:text-[#0149b6]'
+            }`}
+          >
+            📋 Go-live Checklist
+          </button>
+          <button
+            onClick={() => setActiveTab('migration')}
+            className={`px-4 py-2 text-sm font-semibold transition border-b-2 ${
+              activeTab === 'migration'
+                ? 'border-[#0149b6] text-[#0149b6]'
+                : 'border-transparent text-[#5b6779] hover:text-[#0149b6]'
+            }`}
+          >
+            📊 Migratie Status
+          </button>
+        </div>
+
+        {activeTab === 'checklist' && (
+          <>
         <div className="mb-6">
           <h2 className="text-xs font-bold tracking-[0.13em] uppercase text-[#0149b6] mb-1.5">
             Hoe te gebruiken
@@ -780,6 +836,23 @@ export default function DashboardPage() {
           detailplanning, tabblad 'Golive schedule'. Tijden zijn richttijden en
           worden in de dagelijkse calls bewaakt.
         </footer>
+          </>
+        )}
+
+        {activeTab === 'migration' && (
+          <>
+            <div className="mb-6">
+              <h2 className="text-xs font-bold tracking-[0.13em] uppercase text-[#0149b6] mb-1.5">
+                Migratie Voortgang & Goedkeuring
+              </h2>
+              <p className="text-[13.5px] text-[#5b6779] max-w-[680px]">
+                Monitor de voortgang van elke migratie-entiteit. Carerix levert de data, Actief Werkt! test en geeft formele goedkeuring.
+                Wijzig de owner naar "Actief Werkt!" om de approval checkbox te activeren.
+              </p>
+            </div>
+            <MigrationStatus entities={migrationEntities} />
+          </>
+        )}
       </div>
     </div>
   );
