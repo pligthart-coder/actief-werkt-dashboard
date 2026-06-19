@@ -107,11 +107,11 @@ const DAYS: Day[] = [
         sub: "Trigger voor de imports",
       },
       {
-        t: "09:30–17:00",
+        t: "09:30 → za 17:00",
         type: "mig",
         owner: "Carerix",
         title: "Import kandidaten",
-        sub: "Formele oplevering per e-mail (17:00)",
+        sub: "Formele oplevering per e-mail (zaterdag 17:00)",
       },
       {
         t: "09:30–17:00",
