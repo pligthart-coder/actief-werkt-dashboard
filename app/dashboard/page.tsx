@@ -374,11 +374,14 @@ export default function DashboardPage() {
       refreshInterval: 5000,
     }
   );
-  const { data: migrationEntities } = useSWR<MigrationEntity[]>(
+  const { data: migrationEntities, error: migrationError } = useSWR<MigrationEntity[]>(
     "/api/migration",
     fetcher,
     {
       refreshInterval: 5000,
+      onError: (err) => {
+        console.error("Migration entities error:", err);
+      },
     }
   );
 
@@ -850,7 +853,21 @@ export default function DashboardPage() {
                 Wijzig de owner naar "Actief Werkt!" om de approval checkbox te activeren.
               </p>
             </div>
-            <MigrationStatus entities={migrationEntities} />
+            {migrationError && (
+              <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
+                <h3 className="text-red-800 font-semibold mb-2">Database tabel niet gevonden</h3>
+                <p className="text-red-700 text-sm mb-4">
+                  De MigrationEntity tabel bestaat nog niet in de database. Ga eerst naar de setup pagina om de database bij te werken.
+                </p>
+                <a
+                  href="/setup"
+                  className="inline-block px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+                >
+                  Ga naar Setup
+                </a>
+              </div>
+            )}
+            {!migrationError && <MigrationStatus entities={migrationEntities} />}
           </>
         )}
       </div>
