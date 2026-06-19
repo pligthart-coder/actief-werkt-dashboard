@@ -200,22 +200,19 @@ export default function MigrationStatus({ entities }: Props) {
   return (
     <div className="bg-white border border-[#e4eaf3] rounded-xl shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="w-full text-xs min-w-[1400px]">
+        <table className="w-full text-xs">
           <thead>
             <tr className="bg-gradient-to-r from-[#013c98] to-[#0149b6] text-white">
-              <th className="px-2 py-2.5 text-left text-[10px] font-semibold whitespace-nowrap">Date</th>
-              <th className="px-2 py-2.5 text-left text-[10px] font-semibold min-w-[140px]">Activity</th>
-              <th className="px-2 py-2.5 text-left text-[10px] font-semibold whitespace-nowrap">Start</th>
-              <th className="px-2 py-2.5 text-left text-[10px] font-semibold whitespace-nowrap">Delivery</th>
-              <th className="px-2 py-2.5 text-left text-[10px] font-semibold whitespace-nowrap">Time</th>
-              <th className="px-2 py-2.5 text-left text-[10px] font-semibold whitespace-nowrap">Processing<br/>(h)</th>
-              <th className="px-2 py-2.5 text-right text-[10px] font-semibold whitespace-nowrap">Records</th>
-              <th className="px-2 py-2.5 text-right text-[10px] font-semibold whitespace-nowrap">Imported</th>
-              <th className="px-2 py-2.5 text-center text-[10px] font-semibold whitespace-nowrap">Ready<br/>for Test</th>
-              <th className="px-2 py-2.5 text-center text-[10px] font-semibold whitespace-nowrap">OK</th>
-              <th className="px-2 py-2.5 text-center text-[10px] font-semibold whitespace-nowrap">NOT<br/>OK</th>
-              <th className="px-2 py-2.5 text-center text-[10px] font-semibold whitespace-nowrap">Approval</th>
-              <th className="px-2 py-2.5 text-left text-[10px] font-semibold whitespace-nowrap">Owner</th>
+              <th className="px-3 py-2.5 text-left text-[11px] font-semibold">Activity</th>
+              <th className="px-2 py-2.5 text-center text-[11px] font-semibold whitespace-nowrap">Time</th>
+              <th className="px-2 py-2.5 text-center text-[11px] font-semibold whitespace-nowrap">Proc.<br/>(h)</th>
+              <th className="px-2 py-2.5 text-right text-[11px] font-semibold whitespace-nowrap">Records</th>
+              <th className="px-2 py-2.5 text-right text-[11px] font-semibold whitespace-nowrap">Imported</th>
+              <th className="px-2 py-2.5 text-center text-[11px] font-semibold whitespace-nowrap">Ready</th>
+              <th className="px-2 py-2.5 text-center text-[11px] font-semibold whitespace-nowrap">OK</th>
+              <th className="px-2 py-2.5 text-center text-[11px] font-semibold whitespace-nowrap">NOT OK</th>
+              <th className="px-2 py-2.5 text-center text-[11px] font-semibold whitespace-nowrap">Approval</th>
+              <th className="px-2 py-2.5 text-left text-[11px] font-semibold whitespace-nowrap">Owner</th>
             </tr>
           </thead>
           <tbody>
@@ -226,25 +223,27 @@ export default function MigrationStatus({ entities }: Props) {
                   idx % 2 === 0 ? "bg-white" : "bg-[#fafbfc]"
                 }`}
               >
-                <td className="px-2 py-2 text-[10px] text-[#5b6779] whitespace-nowrap">{entity.date}</td>
-                <td className="px-2 py-2 text-[10px] font-medium text-[#172033]">
-                  {entity.activity}
+                <td className="px-3 py-2.5">
+                  <div className="text-[11px] font-medium text-[#172033]">{entity.activity}</div>
+                  <div className="text-[10px] text-[#8a94a6] mt-0.5">
+                    {entity.date} · {entity.startActivity} → {entity.deliveryDate} {entity.expectedTime}
+                  </div>
                 </td>
-                <td className="px-2 py-2 text-[10px] text-[#5b6779] whitespace-nowrap">{entity.startActivity}</td>
-                <td className="px-2 py-2 text-[10px] text-[#5b6779] whitespace-nowrap">{entity.deliveryDate}</td>
-                <td className="px-2 py-2 text-[10px] text-[#5b6779] whitespace-nowrap">{entity.expectedTime}</td>
-                <td className="px-2 py-2 text-[10px] text-[#5b6779]">
+                <td className="px-2 py-2.5 text-center text-[11px] text-[#5b6779] whitespace-nowrap">
+                  {entity.expectedTime}
+                </td>
+                <td className="px-2 py-2.5 text-center">
                   <input
                     type="number"
                     value={entity.processingTime || ""}
                     onChange={(e) =>
                       updateEntity(entity.activity, "processingTime", e.target.value || null)
                     }
-                    className="w-12 px-1 py-0.5 border border-[#e4eaf3] rounded text-center text-[10px]"
+                    className="w-12 px-1 py-1 border border-[#e4eaf3] rounded text-center text-[11px]"
                     placeholder="-"
                   />
                 </td>
-                <td className="px-2 py-2 text-[10px] text-[#5b6779] text-right">
+                <td className="px-2 py-2.5 text-right">
                   <input
                     type="number"
                     value={entity.recordsInFile || ""}
@@ -255,11 +254,11 @@ export default function MigrationStatus({ entities }: Props) {
                         e.target.value ? parseInt(e.target.value) : null
                       )
                     }
-                    className="w-16 px-1 py-0.5 border border-[#e4eaf3] rounded text-right text-[10px]"
+                    className="w-20 px-2 py-1 border border-[#e4eaf3] rounded text-right text-[11px]"
                     placeholder="-"
                   />
                 </td>
-                <td className="px-2 py-2 text-[10px] text-[#5b6779] text-right">
+                <td className="px-2 py-2.5 text-right">
                   <input
                     type="number"
                     value={entity.dataImported || ""}
@@ -270,80 +269,56 @@ export default function MigrationStatus({ entities }: Props) {
                         e.target.value ? parseInt(e.target.value) : null
                       )
                     }
-                    className="w-16 px-1 py-0.5 border border-[#e4eaf3] rounded text-right text-[10px]"
+                    className="w-20 px-2 py-1 border border-[#e4eaf3] rounded text-right text-[11px]"
                     placeholder="-"
                   />
                 </td>
-                <td className="px-2 py-2 text-center">
-                  <div className="flex flex-col items-center gap-0.5">
-                    <input
-                      type="checkbox"
-                      checked={entity.readyForTest}
-                      onChange={(e) =>
-                        updateEntity(entity.activity, "readyForTest", e.target.checked)
-                      }
-                      className="w-3.5 h-3.5 cursor-pointer"
-                    />
-                    {entity.readyForTestDate && (
-                      <span className="text-[9px] text-[#8a94a6] whitespace-nowrap">
-                        {formatDate(entity.readyForTestDate)}
-                      </span>
-                    )}
-                  </div>
+                <td className="px-2 py-2.5 text-center">
+                  <input
+                    type="checkbox"
+                    checked={entity.readyForTest}
+                    onChange={(e) =>
+                      updateEntity(entity.activity, "readyForTest", e.target.checked)
+                    }
+                    className="w-4 h-4 cursor-pointer"
+                    title={entity.readyForTestDate ? formatDate(entity.readyForTestDate) : ""}
+                  />
                 </td>
-                <td className="px-2 py-2 text-center">
-                  <div className="flex flex-col items-center gap-0.5">
-                    <input
-                      type="checkbox"
-                      checked={entity.ok}
-                      onChange={(e) => updateEntity(entity.activity, "ok", e.target.checked)}
-                      className="w-3.5 h-3.5 cursor-pointer"
-                    />
-                    {entity.okDate && (
-                      <span className="text-[9px] text-green-600 whitespace-nowrap">
-                        {formatDate(entity.okDate)}
-                      </span>
-                    )}
-                  </div>
+                <td className="px-2 py-2.5 text-center">
+                  <input
+                    type="checkbox"
+                    checked={entity.ok}
+                    onChange={(e) => updateEntity(entity.activity, "ok", e.target.checked)}
+                    className="w-4 h-4 cursor-pointer"
+                    title={entity.okDate ? formatDate(entity.okDate) : ""}
+                  />
                 </td>
-                <td className="px-2 py-2 text-center">
-                  <div className="flex flex-col items-center gap-0.5">
-                    <input
-                      type="checkbox"
-                      checked={entity.notOk}
-                      onChange={(e) => updateEntity(entity.activity, "notOk", e.target.checked)}
-                      className="w-3.5 h-3.5 cursor-pointer"
-                    />
-                    {entity.notOkDate && (
-                      <span className="text-[9px] text-red-600 whitespace-nowrap">
-                        {formatDate(entity.notOkDate)}
-                      </span>
-                    )}
-                  </div>
+                <td className="px-2 py-2.5 text-center">
+                  <input
+                    type="checkbox"
+                    checked={entity.notOk}
+                    onChange={(e) => updateEntity(entity.activity, "notOk", e.target.checked)}
+                    className="w-4 h-4 cursor-pointer"
+                    title={entity.notOkDate ? formatDate(entity.notOkDate) : ""}
+                  />
                 </td>
-                <td className="px-2 py-2 text-center">
-                  <div className="flex flex-col items-center gap-0.5">
-                    <input
-                      type="checkbox"
-                      checked={entity.approval}
-                      onChange={(e) =>
-                        updateEntity(entity.activity, "approval", e.target.checked)
-                      }
-                      className="w-3.5 h-3.5 cursor-pointer"
-                      disabled={entity.owner !== "Actief Werkt!"}
-                    />
-                    {entity.approvalDate && (
-                      <span className="text-[9px] text-blue-600 whitespace-nowrap">
-                        {formatDate(entity.approvalDate)}
-                      </span>
-                    )}
-                  </div>
+                <td className="px-2 py-2.5 text-center">
+                  <input
+                    type="checkbox"
+                    checked={entity.approval}
+                    onChange={(e) =>
+                      updateEntity(entity.activity, "approval", e.target.checked)
+                    }
+                    className="w-4 h-4 cursor-pointer"
+                    disabled={entity.owner !== "Actief Werkt!"}
+                    title={entity.approvalDate ? formatDate(entity.approvalDate) : ""}
+                  />
                 </td>
-                <td className="px-2 py-2 text-[10px]">
+                <td className="px-2 py-2.5 text-[11px]">
                   <select
                     value={entity.owner}
                     onChange={(e) => updateEntity(entity.activity, "owner", e.target.value)}
-                    className="px-1.5 py-0.5 border border-[#e4eaf3] rounded text-[10px] bg-white w-full"
+                    className="px-2 py-1 border border-[#e4eaf3] rounded text-[11px] bg-white w-full"
                   >
                     <option value="Carerix">Carerix</option>
                     <option value="Actief Werkt!">Actief Werkt!</option>
