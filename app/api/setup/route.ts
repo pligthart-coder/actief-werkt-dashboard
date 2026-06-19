@@ -30,6 +30,35 @@ export async function POST() {
       CREATE INDEX IF NOT EXISTS "ChecklistItem_itemId_idx" ON "ChecklistItem"("itemId");
     `;
 
+    await prisma.$executeRaw`
+      CREATE TABLE IF NOT EXISTS "MigrationEntity" (
+        "id" TEXT NOT NULL PRIMARY KEY,
+        "date" TEXT NOT NULL,
+        "activity" TEXT NOT NULL UNIQUE,
+        "startActivity" TEXT NOT NULL,
+        "deliveryDate" TEXT NOT NULL,
+        "expectedTime" TEXT NOT NULL,
+        "processingTime" TEXT,
+        "recordsInFile" INTEGER,
+        "dataImported" INTEGER,
+        "readyForTest" BOOLEAN NOT NULL DEFAULT false,
+        "readyForTestDate" TIMESTAMP(3),
+        "ok" BOOLEAN NOT NULL DEFAULT false,
+        "okDate" TIMESTAMP(3),
+        "notOk" BOOLEAN NOT NULL DEFAULT false,
+        "notOkDate" TIMESTAMP(3),
+        "approval" BOOLEAN NOT NULL DEFAULT false,
+        "approvalDate" TIMESTAMP(3),
+        "owner" TEXT NOT NULL DEFAULT 'Carerix',
+        "updatedAt" TIMESTAMP(3) NOT NULL,
+        "updatedBy" TEXT
+      );
+    `;
+
+    await prisma.$executeRaw`
+      CREATE INDEX IF NOT EXISTS "MigrationEntity_activity_idx" ON "MigrationEntity"("activity");
+    `;
+
     return NextResponse.json({
       success: true,
       message: "Database tables created successfully!",
