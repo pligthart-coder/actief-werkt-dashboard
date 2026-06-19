@@ -341,6 +341,7 @@ const DAYS: Day[] = [
   },
 ];
 
+// Fetcher for SWR
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 interface MigrationEntity {
